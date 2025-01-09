@@ -91,4 +91,9 @@ export interface Options {
    *
    */
   fetchRequestInit?: RequestInit
+
+  /**
+   * A timeout to wait before drawing to canvas when running on apple or safari
+   */
+  appleTimeout?: number
 }

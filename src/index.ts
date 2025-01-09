@@ -33,9 +33,13 @@ export async function toCanvas<T extends HTMLElement>(
   const svg = await toSvg(node, options)
   const img = await createImage(svg)
 
-  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
-  if (isSafari) {
-    await new Promise((resolve) => setTimeout(resolve, 1000))
+  const isSafariOrApple =
+    /^((?!chrome|android).)*safari/i.test(navigator.userAgent) ||
+    /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)
+  if (isSafariOrApple) {
+    await new Promise((resolve) => {
+      setTimeout(resolve, options.appleTimeout || 250)
+    })
   }
 
   const canvas = document.createElement('canvas')
